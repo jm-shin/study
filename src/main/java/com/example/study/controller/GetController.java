@@ -10,6 +10,7 @@ public class GetController {
     @RequestMapping(method = RequestMethod.GET, path = "/getMethod") //localhost:8080/api/getMethod
     public String getRequest(){
 
+
         return  "Hi getMethod";
     }
 
