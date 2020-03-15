@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
@@ -42,6 +43,7 @@ public class UserRepositoryTest{
     }
 
     @Test
+    @Transactional
     public void update(){
         Optional<User> user = userRepository.findById(1L);
 
@@ -58,18 +60,15 @@ public class UserRepositoryTest{
     public void delete(){
         Optional<User> user = userRepository.findById(1L);
 
-        Assert.assertTrue(user.);
+        Assert.assertTrue(user.isPresent()); //false
+
         user.ifPresent(selectUser -> {
             userRepository.delete(selectUser);
         });
 
         Optional<User> deleteUser = userRepository.findById(1L);
 
-        if(deleteUser.isPresent()){
-            System.out.println("데이터존재: "+deleteUser.get());
-        }else {
-            System.out.println("데이터 삭제. 데이터 없음");
-        }
+        Assert.assertFalse(deleteUser.isPresent()); //false
 
     }
 
